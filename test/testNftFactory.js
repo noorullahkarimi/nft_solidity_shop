@@ -1,30 +1,75 @@
-let testNftFactory = artifacts.require("NftFactory");
-let instance;
+// const { ethers } = require("hardhat");
+const Market = artifacts.require("NftFactory");
+const NFT = artifacts.require("NFT");
+let instancesMarket;
+let instancesNft;
 
 before(async () => {
-  instance = await testNftFactory.new();
+  instancesMarket = await Market.new();
+  console.log("addresss===>" + instancesMarket.address);
+  instancesNft = await NFT.new(instancesMarket.address);
 });
 
-contract("testNftFactory", function (accounts) {
-  const [alice, bob, john] = accounts;
+describe("NftFactory", function () {
+  // let NftFactory;
+  // let NFTs;
+  it("Should create and execute market sales", async function () {
+    // const Market = await ethers.getContractFactory("NftFactory");
+    // const market = await Market.deploy();
+    // await market.deployed(); //deploy the NFTMarket contract
+    // NftFactory = await Market.new();
+    // await NftFactory.deployed();
+    // NftFactory = await deployer.deploy(Market);
+    // const marketAddress = Market.address;
+    // console.log("tissdddddddddddd===>" + marketAddress);
+    // const NFT = await ethers.getContractFactory("NFT");
+    // NFTs = deployer.deploy(NFT, marketAddress.address);
+    // const nft = await NFT.deploy(marketAddress);
+    // await nft.deployed(); //deploy the NFT contract
+    // const nftContractAddress = NFTs.address;
 
-  it("we want a make an nft ", async function () {
-    var result = await instance._createNft(
-      "norullah ",
-      "kjkdd45ds456464s56254dsdf5s",
-      "https://google.com",
-      "this is an nft ",
+    //set an auction prices
+    const auctionPrice = 100;
+
+    //create 2 test tokens
+    let idNft1 = await instancesNft.createToken(
+      "https://www.mytokenlocation.com"
+    );
+    let idNft2 = await instancesNft.createToken(
+      "https://www.mytokenlocation2.com"
+    );
+
+    //this is details for the making nfts
+
+    //create 2 test nfts
+    await instancesMarket._createNft(
+      idNft1,
+      "nk",
+      nftContractAddress,
+      "fkdljalkfdsjkj_1",
+      "https1",
+      "desc1",
       "art",
-      1000
+      auctionPrice,
+      {
+        value: listingPrice,
+      }
     );
-    assert.equal(result, true, `${result}---> this is the answer`);
-  });
-  it("we want to get all nfts from smart contract", async function () {
-    var resultGetNfts = await instance.showNfts();
-    assert.equal(
-      resultGetNfts,
-      true,
-      `${resultGetNfts}---> this is the answer`
+
+    await instancesMarket._createNft(
+      idNft2,
+      "sp",
+      nftContractAddress,
+      "fkdljalkfdsjkj_2",
+      "https",
+      "desc2",
+      "art2",
+      auctionPrice,
+      {
+        value: listingPrice,
+      }
     );
+
+    // const [_, buyerAddress] = await ethers.getSigners();
   });
 });
