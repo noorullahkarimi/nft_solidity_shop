@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>safe-shop</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="content-all flex-column wid-100">
+        <div class="header flex-row font-sty wid-100 grey-col">
+            <div><img src="img/safeparadise.png" alt="png.png" width="100"></div>
+            <div class="pointer-curs" id="loadPageCreateNft">ceate</div>
+            <div id="explore" class="pointer-curs">explore</div>
+            <div><input class="input-sty notallowed-curs" id="address_bar" type="text" readonly></div>
+            <div><input class="botton-sty-blue font-sty pointer-curs" type="button" id="connectToWallet" value="connect"> </div>
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+        <div id="landingPage" class="landing-page-img wid-100 flex-column grey-col ">
+            <div>
+                <h1>welcome to your site</h1><br>
+                <h3>the first site for creating and transfer NFT all around the world.</h3><br>
+                <p>one of the most papulare</p><br>
+                
+            </div>
+            <div class="card-sty flex-column">
+                <div>
+                    <img src="img/Group 3.png" alt="picture.png" loading="lazy">
+                </div>
+                <div class="card-content flex-row">
+                    <div class="test">
+                        <p>nft #safeparadise</p>
+                    </div>
+                </div>
+            </div>
+            <div class="description flex-column ">
+                <h2>read more about safe-shop</h2>
+                <img src="img/shop.png" alt="shop.png">
+                <h5>one of the best shopping on all around the world</h5>
+                <br>
+                <p>you access to many item of nft</p>
+                <br>
+                <p>with the biggest item</p>
+                
+                <img src="img/security.png" alt="shop.png">
+                <h5>high security, more than other platform </h5>
+                <br>
+                <p>this platform with the latest security testing in world</p>
+                <br>
+                <p>all day updating</p>
+                <img src="img/choose.png" alt="shop.png">
+                <h5>unlimited creating nft and unlimited buying</h5>
+                <br>
+                <p>every action with the less gas than others</p>
+                <br>
+                <p>cheap and fast</p>
+            </div>
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+
+        <div class="flex-column dis-hidden" id="creatNftPage">
+            <img src="img/Group 3.png" id="picPreviw" alt="preview.png" width="20%"><br>
+            <input type="file" name="file" id="files" accept="image/*" onchange="readFile()"><br>
+            <input type="button" value="create" class="botton-sty-blue" id="createNft" >
+            <input type="hidden" value="ipfs.ifura.io/klsjdflsallksjfklakl" id="ipfsAddressNFT">
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+        <div id="detailsNftPage" class="dyn-content wid-100 flex-row font-sty-2 dis-hidden">
+          <div class="adding-details-nft flex-column font-sty-2">
+            <h2>list item for sell:</h2><br>
+            <img src="img/Group 3.png" alt="img.png" width="50%"><br><br>
+            <p>name</p><br>
+            <input type="text" class="input-sty"><br><br>
+            <p>external link</p><p>(this is for buyer to download original picture)</p><br>
+            <input type="text" class="input-sty"><br><br>
+            <p>description</p><br>
+            <input type="text" class="input-sty"><br><br>
+            <p>price</p><br>
+            <input type="text" class="input-sty"><br><br>
+            <p>category</p><br>
+            <select class="sele-opt" name="category" id="category">
+                <option value="art">art</option>
+                <option value="collection">collection</option>
+                <option value="nature">nature</option>
+                <option value="other">other</option>
+            </select>
+            <br><br>
+            <input type="button" value="list nft" class="pointer-curs botton-sty-blue save-btn">
+          </div>
+        </div>
+
+<!-- ----------------------------------------------------------------------------------- -->
+        <div class="footer wid-100 ">
+            <div class="header-footer flex-row">
+                <div><h3>coin base</h3></div>
+                <div><h3>metamask</h3></div>
+                <div><h3>ethereum</h3></div>
+            </div>
+        </div>
+<!-- ----------------------------------------------------------------------------------- -->
+    </div>
+    <!-- <script src="node_modules/axios/dist/axios.min.js"></script> -->
+    <!-- <script  type="module" src="require.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script> -->
+    <!-- <script src="https://wzrd.in/standalone/refify@latest"></script> -->
+    <!-- <script src="jes.js"></script> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script type="module" src="index.js" ></script>
+    <script>
+// eventListener(1);
+        // document.addEventListener('DOMContentLoaded',load_home);
+        function load_home(){
+            fetch('landingPage.html').then((response)=>response.text()).then((data)=>{
+                document.querySelector('#nft').innerHTML= data;
+            });
+        }
+    </script>
+</body>
+</html>

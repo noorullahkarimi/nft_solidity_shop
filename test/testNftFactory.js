@@ -1,75 +1,113 @@
+// const { Contract } = require("ethers");
+
+const { assert } = require("console");
+let { catchRevert } = require("./exceptionsHelpers.js");
+
 // const { ethers } = require("hardhat");
 const Market = artifacts.require("NftFactory");
 const NFT = artifacts.require("NFT");
 let instancesMarket;
 let instancesNft;
 
-before(async () => {
-  instancesMarket = await Market.new();
-  console.log("addresss===>" + instancesMarket.address);
-  instancesNft = await NFT.new(instancesMarket.address);
-});
+const listingPrice = 100;
 
-describe("NftFactory", function () {
-  // let NftFactory;
-  // let NFTs;
-  it("Should create and execute market sales", async function () {
-    // const Market = await ethers.getContractFactory("NftFactory");
-    // const market = await Market.deploy();
-    // await market.deployed(); //deploy the NFTMarket contract
-    // NftFactory = await Market.new();
-    // await NftFactory.deployed();
-    // NftFactory = await deployer.deploy(Market);
-    // const marketAddress = Market.address;
-    // console.log("tissdddddddddddd===>" + marketAddress);
-    // const NFT = await ethers.getContractFactory("NFT");
-    // NFTs = deployer.deploy(NFT, marketAddress.address);
-    // const nft = await NFT.deploy(marketAddress);
-    // await nft.deployed(); //deploy the NFT contract
-    // const nftContractAddress = NFTs.address;
+contract("NftFactory", (accounts) => {
+  const [alice, bob, john, chris] = accounts;
+  before(async () => {
+    instancesMarket = await Market.new();
+    console.log("addresss-11===>" + instancesMarket.address);
+    instancesNft = await NFT.new(instancesMarket.address);
+    console.log("addresss-22===>" + instancesNft.address);
+  });
 
+  it("we want to make an nfts ", async function () {
     //set an auction prices
     const auctionPrice = 100;
 
     //create 2 test tokens
     let idNft1 = await instancesNft.createToken(
-      "https://www.mytokenlocation.com"
+      "https://www.mytokenlocation.com",
+      { from: alice }
     );
     let idNft2 = await instancesNft.createToken(
-      "https://www.mytokenlocation2.com"
+      "https://www.mytokenlocation2.com",
+      { from: bob }
     );
 
-    //this is details for the making nfts
+    console.log(
+      "this is first id=" +
+        //  JSON.stringify(idNft1)+
+        idNft1.logs[0].args.tokenId
+      // "=secound=" +
+      // JSON.stringify(idNft2)
+      // idNft2.args[tokenId]
+    );
 
     //create 2 test nfts
-    await instancesMarket._createNft(
-      idNft1,
+    let nft1 = await instancesMarket._createNft(
+      idNft1.logs[0].args.tokenId,
       "nk",
-      nftContractAddress,
+      instancesNft.address,
       "fkdljalkfdsjkj_1",
       "https1",
       "desc1",
       "art",
       auctionPrice,
-      {
-        value: listingPrice,
-      }
+      { from: alice }
     );
 
-    await instancesMarket._createNft(
-      idNft2,
+    console.log("----------first nft ---------");
+    console.log("tokenid" + nft1.logs[0].args._tokenId);
+    console.log("name" + nft1.logs[0].args._name);
+    console.log("contractaddres" + nft1.logs[0].args._contractNft);
+    console.log("hashnft" + nft1.logs[0].args._hashNft);
+    console.log("linknft" + nft1.logs[0].args._linkNft);
+    console.log("description" + nft1.logs[0].args._description);
+    console.log("category" + nft1.logs[0].args._category);
+    console.log("price" + nft1.logs[0].args._price);
+
+    let nft2 = await instancesMarket._createNft(
+      idNft2.logs[0].args.tokenId,
       "sp",
-      nftContractAddress,
+      instancesNft.address,
       "fkdljalkfdsjkj_2",
       "https",
       "desc2",
       "art2",
       auctionPrice,
-      {
-        value: listingPrice,
-      }
+      { from: bob }
     );
 
-    // const [_, buyerAddress] = await ethers.getSigners();
+    console.log("----------secound nft ---------");
+    console.log("tokenid" + nft1.logs[0].args._tokenId);
+    console.log("name" + nft1.logs[0].args._name);
+    console.log("contractaddres" + nft1.logs[0].args._contractNft);
+    console.log("hashnft" + nft1.logs[0].args._hashNft);
+    console.log("linknft" + nft1.logs[0].args._linkNft);
+    console.log("description" + nft1.logs[0].args._description);
+    console.log("category" + nft1.logs[0].args._category);
+    console.log("price" + nft1.logs[0].args._price);
   });
+
+  // it("we want to show the all nfts ", async () => {
+  //   let showNfts = await instancesMarket.showNfts();
+  //   console.log(showNfts);
+  // });
+  // it("we want to show nft of wallet we define it", async () => {
+  //   let ownerNfts = instancesMarket.nftOwner({ from: alice });
+  //   // ownerNfts.forEach((element) => {
+  //   // console.log(ownerNfts[0]);
+  //   // });
+  // });
+  it("we want to transfer nft and buy it", async () => {
+    let results = await instancesMarket.transferNft(1, {
+      from: chris,
+      value: 20,
+    });
+    console.log("=>" + results);
+    console.log("______________===>" + results.logs[0].args.contractAddress);
+    console.log("______________===>" + results.logs[0].args.buyer);
+    console.log("______________===>" + results.logs[0].args._tokenIds);
+    console.log("______________===>" + results.logs[0].args._price);
+  }); //this is it func
 });

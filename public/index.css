@@ -1,0 +1,121 @@
+/*css reset*/
+*{
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+input:focus{
+    outline: none;
+}
+/*css root*/
+:root{
+    --blue-color:#5d53f0;
+    --grey-color:#5f6368;
+}
+/*public class*/
+h1{
+    color: black;
+}
+.botton-sty-blue{
+    /* height: 3rem; */
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    background-color: var(--blue-color);
+    color: white;
+}
+.input-sty{
+   height: 2rem;
+    border-radius: 5px;
+    border: thin solid var(--grey-color);
+    
+}
+.notallowed-curs{
+    cursor: not-allowed;
+}
+.pointer-curs{
+    cursor: pointer;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.font-sty{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+.wid-100{
+    width: 100%;
+}
+.grey-col{
+    color: var(--grey-color);
+}
+.font-sty-2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/*private class*/
+.header{
+    height: 4rem;
+    box-shadow: 2px 2px 20px var(--grey-color);
+}
+/*card css st*/
+.card-sty{
+    width: 50%;
+    border-radius: 6px;
+    border: thin solid var(--grey-color);
+    box-shadow: 10px 10px 8px var(--grey-color);
+    margin: 4em 10px 4em 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+} 
+.card-sty div img{
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+}
+.card-content{
+    height: 3rem;
+}
+/*card css end*/
+.dyn-content{
+    padding: 5rem 0 5rem 0;
+}
+.description{
+    margin-top: 3rem;
+}
+.description img{
+    width: 50px;
+    margin-top: 4em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.header-footer{
+    background-color: #7870eb;
+    height: 5rem;
+    color: rgba(255, 255, 255, 0.712);
+    font-size: larger;
+}
+.adding-details-nft{
+    width: 100%;
+}
+.sele-opt{
+    width: 40%;
+    height: 2rem;
+    border-radius: 6px;
+    outline: none;
+}
+.dis-block{
+    display: block;
+}
+.dis-hidden{
+    display: none;
+}
+/*form upload */
+
+  

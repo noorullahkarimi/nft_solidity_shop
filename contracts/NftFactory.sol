@@ -18,11 +18,12 @@ contract NftFactory {
     mapping(uint256 => address) private numberOfNftAndAddress;
     //this calculate the money be as user sended is enough
     modifier paidEnough(uint256 _price) {
-        require(msg.value >= _price);
+        require(msg.value >= _price, "this money is less an standard ");
         _;
     }
     //this struct define all details of every nft(name , hash file, ...)
     struct nftDetails {
+        uint256 tokenId;
         string name;
         address contractNft;
         string hashNft;
@@ -33,12 +34,21 @@ contract NftFactory {
     }
 
     event createdNft(
+        uint256 _tokenId,
         string _name,
         address _contractNft,
         string _hashNft,
         string _linkNft,
         string _description,
         string _category,
+        uint256 _price
+    );
+    event numbersOfNfts(uint256[] num);
+
+    event transferedNft(
+        address contractAddress,
+        address buyer,
+        uint256 _tokenIds,
         uint256 _price
     );
 
@@ -58,6 +68,7 @@ contract NftFactory {
         //we push details on the array
         nftDetailsArray.push(
             nftDetails(
+                _tokenId,
                 _name,
                 _contractNft,
                 _hashNft,
@@ -77,6 +88,7 @@ contract NftFactory {
         IERC721(_contractNft).transferFrom(msg.sender, address(this), _tokenId);
         //below we have an event that we need to log for successfull or not.
         emit createdNft(
+            _tokenId,
             _name,
             _contractNft,
             _hashNft,
@@ -93,34 +105,33 @@ contract NftFactory {
     }
 
     //this func show all nft of one person
-    function nftOwner(address _ownerAddr)
-        public
-        view
-        returns (uint256[] memory)
-    {
+    function nftOwner() public view returns (uint256[] memory) {
         //result is arrays that an address mint some nfts(number of nfts that register)
         uint256[] memory result;
         uint256 count = 0;
 
         for (uint256 i = 0; i < nftDetailsArray.length; i++) {
-            if (numberOfNftAndAddress[i] == _ownerAddr) {
+            if (numberOfNftAndAddress[i] == msg.sender) {
                 //we use the count form counter library for more security
                 result[count] = i;
                 count.add(1);
             }
         }
+        // emit numbersOfNfts(result);
         return result;
     }
 
-    // function transferNft(uint256 _idNft)
-    //     public
-    //     payable
-    //     paidEnough(nftDetailsArray[_idNft].price)
-    // {
-    //     _transfer(owner[_idNft], msg.sender, _idNft);
-    // }
-
-    // function confirmTransferNft(uint256 _idNft) public {
-    //     approve(msg.sender, _idNft);
-    // }
+    function transferNft(uint256 _idNft)
+        public
+        payable
+        paidEnough(nftDetailsArray[_idNft].price)
+    {
+        payable(numberOfNftAndAddress[_idNft]).transfer(msg.value);
+        IERC721(nftDetailsArray[_idNft].contractNft).transferFrom(
+            address(this),
+            msg.sender,
+            nftDetailsArray[_idNft].tokenId
+        );
+        emit transferedNft(address(this), msg.sender, _idNft, msg.value);
+    }
 }
