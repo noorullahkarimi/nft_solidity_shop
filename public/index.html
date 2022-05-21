@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>safe-shop</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 <body>
     <div class="content-all flex-column wid-100">
         <div class="header flex-row font-sty wid-100 grey-col">
-            <div><img src="img/safeparadise.png" alt="png.png" width="100"></div>
+            <div id="firstPage"><img src="img/safeparadise.png" alt="png.png" width="100"></div>
             <div class="pointer-curs" id="loadPageCreateNft">ceate</div>
             <div id="explore" class="pointer-curs">explore</div>
             <div><input class="input-sty notallowed-curs" id="address_bar" type="text" readonly></div>
@@ -71,22 +72,22 @@
             <h2>list item for sell:</h2><br>
             <img src="img/Group 3.png" alt="img.png" width="50%"><br><br>
             <p>name</p><br>
-            <input type="text" class="input-sty"><br><br>
+            <input type="text" name="name" class="input-sty" id="nameNft"><br><br>
             <p>external link</p><p>(this is for buyer to download original picture)</p><br>
-            <input type="text" class="input-sty"><br><br>
+            <input type="text" name="externalLink" class="input-sty" id="externalLinkNft"><br><br>
             <p>description</p><br>
-            <input type="text" class="input-sty"><br><br>
+            <input type="text" name="description" class="input-sty" id="descriptionNft"><br><br>
             <p>price</p><br>
-            <input type="text" class="input-sty"><br><br>
+            <input type="text" name="price" class="input-sty" id="priceNft"><br><br>
             <p>category</p><br>
-            <select class="sele-opt" name="category" id="category">
+            <select class="sele-opt" name="category" id="categoryNft">
                 <option value="art">art</option>
                 <option value="collection">collection</option>
                 <option value="nature">nature</option>
                 <option value="other">other</option>
             </select>
             <br><br>
-            <input type="button" value="list nft" class="pointer-curs botton-sty-blue save-btn">
+            <input type="button" value="list nft" class="pointer-curs botton-sty-blue save-btn" id="listNft">
           </div>
         </div>
 
@@ -106,16 +107,17 @@
     <!-- <script src="https://wzrd.in/standalone/refify@latest"></script> -->
     <!-- <script src="jes.js"></script> -->
     
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script type="module" src="index.js" ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> -->
+    <script src="connectToContract.js"></script>
+    <script src="showHide.js"></script>
+    <script src="index.js" ></script>
     <script>
-// eventListener(1);
-        // document.addEventListener('DOMContentLoaded',load_home);
-        function load_home(){
-            fetch('landingPage.html').then((response)=>response.text()).then((data)=>{
-                document.querySelector('#nft').innerHTML= data;
-            });
-        }
+        document.addEventListener('DOMContentLoaded',getAddress());
+        // function load_home(){
+        //     fetch('landingPage.html').then((response)=>response.text()).then((data)=>{
+        //         document.querySelector('#nft').innerHTML= data;
+        //     });
+        // }
     </script>
 </body>
 </html>

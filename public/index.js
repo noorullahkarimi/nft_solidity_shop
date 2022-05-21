@@ -1,31 +1,32 @@
-let idsPage = ["landingPage", "creatNftPage", "detailsNftPage"];
-const ssABI = [];
-const addressContract = "";
 //variable
-// var fs = require("fs");
-// import fs from "fs";
-// import fleekStorage from "/fleek-storage-js/*";
+let showpages = new showHide();
+
 //evenListener ----------------------------------------------------
 eventListener();
 function eventListener() {
-  document
-    .getElementById("loadPageCreateNft")
-    .addEventListener("click", showPages("creatNftPage"));
+  //show page create and upload nft
+  document.getElementById("loadPageCreateNft").addEventListener("click", () => {
+    showpages.showCreatePage();
+  });
+  //show page adding details to user
+  document.getElementById("createNft").addEventListener("click", () => {
+    showpages.showAddingDetailsPage();
+  });
+  //show the landing page
+  document.getElementById("firstPage").addEventListener("click", () => {
+    showpages.showlandingPage();
+  });
+  //listing nft
+  document.getElementById("listNft").addEventListener("click", () => {
+    let connect = new connectToContract();
+    connect.addingDetailsToSmartContract();
+  });
 
-  document.getElementById("createNft").addEventListener("click", createNft);
-  document.getElementById("files").addEventListener("change", readFile);
-
-  // console.log("first" + id);
+  // connecting to the wallet user
   document
     .getElementById("connectToWallet")
     .addEventListener("click", getAddress);
-  document
-    .getElementById("explore")
-    .addEventListener("click", showArrayNftPage);
-
-  // document.getElementById("file").addEventListener("change", uploadfleek);
 }
-// document.getElementById("inp").addEventListener("change", readFile);
 //functions-----------------------------------
 async function getAddress() {
   console.log("this workwith get address");
@@ -48,51 +49,55 @@ async function getAddress() {
 //       document.querySelector("#nft").innerHTML = data;
 //     });
 // }
-function showPages(idpage) {
-  console.log(idpage);
-  console.log(document.getElementById(idpage).className.includes("dis-hidden"));
-  let tg = document.getElementById(idpage).className;
-  if (tg.includes("dis-hidden")) {
-    console.log(tg.replace("dis-hidden", " "));
-    tg = tg.replace("dis-hidden", " ");
-    document.getElementById(idpage).className = tg;
-  }
-  for (let i = 0; i < idsPage.lengt; i++) {
-    if (i != idsPage.index(idpage)) {
-      let tagelement = document.getElementById(idsPage[i]).classList;
-      console.log(tagelement);
-      document.getElementById(idsPage[i]).classList = tagelement + "dis-hidden";
-    }
-  }
-}
+// function showPages(e) {
+//   console.log(e.target.id);
+//   let elements = document.getElementById(idsPage[e.target.id]).className;
+//   console.log(elements);
+//   if (elements.includes("dis-hidden")) {
+//     elements.replace("dis-hidden", "");
+//     document.getElementById(idsPage[e.target.id]).className = elements;
+//     for (var key in idsPage) {
+//       console.log(key + " and " + idsPage[key]);
+//       if (
+//         key != e.target.id &&
+//         !document.getElementById(idsPage[key]).className.includes("dis-hidden")
+//       ) {
+//         console.log(
+//           (document.getElementById(idsPage[key]).className += " dis-hidden")
+//         );
+//         document.getElementById(idsPage[key]).className += " dis-hidden";
+//       }
+//     }
+//   }
+// }
 
-function readFile() {
-  var image = document.getElementById("picPreviw");
-  console.log(image);
-  image.src = URL.createObjectURL(event.target.files[0]);
-}
+// function readFile() {
+//   var image = document.getElementById("picPreviw");
+//   console.log(image);
+//   image.src = URL.createObjectURL(event.target.files[0]);
+// }
 
-function createNftPage(e) {
-  e.preventDefault();
-  fetch("createNft.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.querySelector("#nft").innerHTML = data;
-    });
-}
-function showArrayNftPage(e) {
-  e.preventDefault();
-  fetch("showExplore.html")
-    .then((response) => response.text())
-    .then((data) => {
-      document.querySelector("#nft").innerHTML = data;
-    });
-}
+// function createNftPage(e) {
+//   e.preventDefault();
+//   fetch("createNft.html")
+//     .then((response) => response.text())
+//     .then((data) => {
+//       document.querySelector("#nft").innerHTML = data;
+//     });
+// }
+// function showArrayNftPage(e) {
+//   e.preventDefault();
+//   fetch("showExplore.html")
+//     .then((response) => response.text())
+//     .then((data) => {
+//       document.querySelector("#nft").innerHTML = data;
+//     });
+// }
 
-function createNft() {
-  let ipfsAddressNFT = document.getElementById("ipfsAddressNFT").value;
-  console.log(ipfsAddressNFT);
-}
+// function createNft() {
+//   let ipfsAddressNFT = document.getElementById("ipfsAddressNFT").value;
+//   console.log(ipfsAddressNFT);
+// }
 
 // function uploadfleek() {
 //   fs.readFile(this.files[0], async (error, fileData) => {

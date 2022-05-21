@@ -55,7 +55,7 @@ contract NftFactory {
     //this function make the nft and added details to nfts
     //this should pass the address "contract nft" for knowing where is form
     //no need to returns because we use the log , it is be better than
-    function _createNft(
+    function createNft(
         uint256 _tokenId,
         string memory _name,
         address _contractNft,

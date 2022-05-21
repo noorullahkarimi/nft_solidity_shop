@@ -110,12 +110,16 @@ h1{
     border-radius: 6px;
     outline: none;
 }
-.dis-block{
-    display: block;
-}
 .dis-hidden{
     display: none;
 }
 /*form upload */
 
-  
+#creatNftPage{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+#landingPage{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
